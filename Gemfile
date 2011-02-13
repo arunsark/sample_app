@@ -6,6 +6,7 @@ gem 'rails', '3.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3-ruby', '1.3.2', :require => 'sqlite3'
+gem 'gravatar_image_tag', '1.0.0.pre2'
 #gem 'autotest', '4.4.6'
 #gem 'autotest-rails-pure', '4.1.2'
 
@@ -19,6 +20,7 @@ end
 group :test do
   gem 'rspec', '2.3.0'
   gem 'webrat', '0.7.3'
+  gem 'factory_girl_rails','1.0'
 #  gem 'ZenTest', '4.4.2'
 #  gem 'redgreen', '1.2.2'
 end
