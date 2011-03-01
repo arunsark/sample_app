@@ -50,6 +50,8 @@ describe UsersController do
         response.should have_selector("a", :href => "/users?page=2",
                                            :content => "Next")
       end
+
+      
     end
   end
 
@@ -72,11 +74,11 @@ describe UsersController do
     end
     it "should have the password field" do
       get 'new'
-      response.should have_selector("input[name='user[password]'][type='text']")
+      response.should have_selector("input[name='user[password]'][type='password']")
     end
     it "should have the password confirmation field" do
       get 'new'
-      response.should have_selector("input[name='user[password_confirmation]'][type='text']")
+      response.should have_selector("input[name='user[password_confirmation]'][type='password']")
     end    
   end
 
@@ -274,12 +276,18 @@ describe UsersController do
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
       end
+
+      it "should not have delete link for user" do
+        test_sign_in(@user)
+        response.should_not have_selector("a", :href =>users_path,
+                                           :content => "delete")
+      end
     end
 
     describe "as admin user" do
       before (:each) do
-        admin = Factory(:user, :email => "admin@example.com", :admin => true)
-        test_sign_in(admin)        
+        @admin = Factory(:user, :email => "admin@example.com", :admin => true)
+        test_sign_in(@admin)        
       end
 
       it "should destroy the user" do
@@ -288,10 +296,23 @@ describe UsersController do
         end.should change(User, :count).by(-1)
       end
 
+      it "should not destroy itself" do
+        lambda do
+          delete :destroy, :id => @admin          
+        end.should change(User, :count).by(0)
+      end
+
       it "should redirect to the users page" do
         delete :destroy, :id => @user
         response.should redirect_to(users_path)
       end
+
+      it "should have delete link for user" do
+        test_sign_in(@user)
+        response.should_not have_selector("a", :href =>users_path,
+                                           :content => "delete")
+      end
+
     end
   end
 end
