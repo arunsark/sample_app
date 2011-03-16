@@ -97,6 +97,7 @@ describe "POST 'create'" do
 
   describe "from_users_followed_by" do
     before(:each) do
+      @user = Factory(:user)
       @other_user = Factory(:user,:email=>Factory.next(:email))
       @third_user = Factory(:user,:email=>Factory.next(:email))
 
@@ -123,4 +124,6 @@ describe "POST 'create'" do
       Micropost.from_users_followed_by(@user).should_not include(@third_post)
     end
   end
+
+  
 end
