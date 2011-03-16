@@ -45,6 +45,8 @@ describe SessionsController do
       end
 
       it "should sign the user in" do
+        puts @user.email
+        puts @user.password
         post :create, :session => @attr
         controller.current_user.should == @user
         controller.should be_signed_in

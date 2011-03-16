@@ -36,5 +36,23 @@ describe "Microposts" do
         end.should change(Micropost, :count).by(1)
       end
     end
-  end  
+  end
+
+  describe "microposts count" do
+    it "should have proper micropost count" do
+      content = "Lorem ipsum dolor sit amet"
+      visit root_path
+      fill_in :micropost_content, :with => content
+      click_button
+      content = "1 micropost"
+      response.should have_selector("span.microposts", :content => content)
+
+      content = "Lorem ipsum dolor sit amet"
+      fill_in :micropost_content, :with => content
+      click_button
+      content = "2 microposts"
+      response.should have_selector("span.microposts", :content => content)
+      
+    end
+  end
 end
