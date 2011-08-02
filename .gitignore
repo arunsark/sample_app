@@ -5,4 +5,7 @@ tmp/**/*
 *~
 *#
 *#*
-*.log
+*.logdb/development
+db/development
+db/development.sqlite
+db/test
